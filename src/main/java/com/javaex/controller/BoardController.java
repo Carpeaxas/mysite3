@@ -1,6 +1,7 @@
 package com.javaex.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -23,6 +24,21 @@ public class BoardController {
 	
 	@Autowired
 	private BoardService boardService;
+	
+	
+	/* 게시판 리스트 페이징 기능 포함 */
+	@RequestMapping(value="/list3", method= {RequestMethod.GET, RequestMethod.POST})
+	public String list3(@RequestParam(value = "crtPage", required =false, defaultValue = "1") int crtPage , Model model) {
+		System.out.println("BoardController.list3()");
+		
+		Map<String , Object> pMap = boardService.getList3(crtPage);
+		model.addAttribute("pMap", pMap);
+		return "board/list3";
+	}
+	
+	
+	
+
 	
 	
 	/* 게시판 리스트: 검색기능 포함 */
@@ -70,6 +86,15 @@ public class BoardController {
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
 		boardVo.setUserNo(authUser.getNo());
 		boardService.addBoard(boardVo);
+		
+		/* 글쓰기 */
+		/*
+		 * for(int i=1; i<=123; i++) { String str = i +"번째 글 입니다.";
+		 * boardVo.setTitle(str); boardService.addBoard(boardVo);
+		 * 
+		 * }
+		 */
+		
 
 		return "redirect:/board/list";
 	}

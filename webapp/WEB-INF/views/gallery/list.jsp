@@ -130,8 +130,6 @@
 	</div>
 	<!-- /.modal -->
 
-
-
 	<!-- 이미지보기 팝업(모달)창 -->
 	<div class="modal fade" id="viewModal">
 		<div class="modal-dialog">
